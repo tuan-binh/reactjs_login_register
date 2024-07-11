@@ -1,11 +1,7 @@
-import RegisterPage from './pages/RegisterPage';
+import PublicRoutes from './routers/PublicRoutes';
 
 function App() {
-  return (
-    <>
-      <RegisterPage />
-    </>
-  );
+  return <PublicRoutes />;
 }
 
 export default App;
