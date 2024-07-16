@@ -40,7 +40,21 @@ function RegisterPage() {
     }
   };
 
+  const [showAvatar, setShowAvatar] = useState(null);
   const [avatar, setAvatar] = useState(null);
+  const handleChangeFile = (e) => {
+    setAvatar(e.target.files[0]);
+    encodeImageFileAsURL(e.target.files[0]);
+  };
+
+  function encodeImageFileAsURL(file) {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      console.log('RESULT', reader.result);
+      setShowAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -104,8 +118,10 @@ function RegisterPage() {
         />
         <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
           Upload file
-          <VisuallyHiddenInput type="file" onChange={(e) => setAvatar(e.target.files[0])} />
+          <VisuallyHiddenInput type="file" onChange={handleChangeFile} />
         </Button>
+        {console.log(showAvatar)}
+        {showAvatar && <img src={showAvatar} alt="img" />}
         <Button type="submit" variant="contained">
           Sign Up
         </Button>
