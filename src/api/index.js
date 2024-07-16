@@ -18,12 +18,12 @@ export const formAxios = axios.create({
 });
 
 const handleAddInterceptors = (instance) => {
-  // interceptors request
+  // interceptors request use
   instance.interceptors.request.use(
     (config) => {
       const cookie = new Cookies();
-      const type = cookie.get('type');
-      const accessToken = cookie.get('accessToken');
+      const type = cookie.get('type'); // Bearer
+      const accessToken = cookie.get('accessToken'); // accessToken
       if (accessToken && type) {
         config.headers.Authorization = `${type} ${accessToken}`;
       }
@@ -31,7 +31,7 @@ const handleAddInterceptors = (instance) => {
     },
     (err) => Promise.reject(err),
   );
-  // interceptors response
+  // interceptors response use
   instance.interceptors.response.use(
     (resp) => resp,
     (err) => Promise.reject(err),
